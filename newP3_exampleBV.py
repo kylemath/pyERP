@@ -1,7 +1,8 @@
 from utils import *
 data_dir = '/Users/kylemathewson/Data/'
 exp = 'P3'
-subs = ['001','002']
+# subs = ['001','002']
+subs = ['001','002','004','005','006','007','008','010']
 sessions = ['ActiveDry','ActiveWet','PassiveWet']
 
 event_id = {'Target': 1, 'Standard': 2}
@@ -18,7 +19,7 @@ for i_session, session in enumerate(sessions):
 		#Pre-Process EEG Data
 		epochs[session] = PreProcess(raw,event_id,
 							emcp_epochs=True, rereference=True,
-							plot_erp=False, rej_thresh_uV=1000, 
+							plot_erp=False, rej_thresh_uV=250, 
 							epoch_time=(-.2,1), baseline=(-.2,0) )
 		#create evoked dict by averaging all the epochs for this test subject
 		all_lists['Target'].append(epochs[session]['Target'].average())
@@ -27,7 +28,7 @@ for i_session, session in enumerate(sessions):
 	all_evokeds['Target'] = all_lists['Target']
 	all_evokeds['Standard'] = all_lists['Standard']
 	ax = plt.subplot(3,1,i_session+1)
-	viz.plot_compare_evokeds(all_evokeds,picks=[6],axes=ax,
+	viz.plot_compare_evokeds(all_evokeds,picks=[8],axes=ax,
 							title=session,show=False,ci=.95)
 plt.show()
 
